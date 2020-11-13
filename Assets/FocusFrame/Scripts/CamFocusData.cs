@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data.Common;
 using System;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class CamFocusData : MonoBehaviour
 {
@@ -56,6 +59,24 @@ public class CamFocusData : MonoBehaviour
     {
     	FillOriens();
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("ActiveNode2Db")]
+    public void Node2Db()
+    {
+    	Node sel;
+    	try
+    	{
+    		sel= Selection.activeTransform.GetComponent<NodeCom>().nodeData;
+    	}
+    	catch
+    	{
+    		Debug.LogError("NodeCom not found on active object! "+ (Selection.gameObjects.Length>1? "Make sure only one object is selected!": ""));
+    		return;
+    	}
+    	// SetNode(sel.nodeID,selection.ac);
+    }
+#endif
 }
 
 public class Orientation

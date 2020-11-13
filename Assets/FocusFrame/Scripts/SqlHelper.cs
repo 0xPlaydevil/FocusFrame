@@ -50,7 +50,7 @@ public class SQLHelper
 			switch(type)
 			{
 				case DbType.Sqlite:
-					conStr= server;
+					conStr= "data source="+server;
 		            dbConnection=new SqliteConnection(conStr);
 					break;
 				case DbType.MySql:

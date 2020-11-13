@@ -11,6 +11,8 @@ public class DbManager : MonoBehaviour
 	public string dbName;
 	public string port;
 
+	public bool isDebug= false;
+
 	SQLHelper _db= null;
 	public SQLHelper db
 	{
@@ -20,6 +22,7 @@ public class DbManager : MonoBehaviour
 			{
 				_db= new SQLHelper(dbType,dbPath,user,password,dbName,port);
 			}
+			_db.debug=isDebug;
 			return _db;
 		}
 	}
@@ -42,5 +45,8 @@ public class DbManager : MonoBehaviour
     	_db.CloseConnection();
     }
 
-
+	public static string SQuote(string orig)
+	{
+		return "'" + orig + "'";
+	}
 }

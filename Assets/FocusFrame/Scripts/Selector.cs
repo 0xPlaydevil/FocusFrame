@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Selector : MonoBehaviour
 {
+    public GmObjEvent onGameObjectSelected= null;
 	public string selID
 	{
 		get{return _selID;}
@@ -12,7 +14,7 @@ public class Selector : MonoBehaviour
             if(obj!=null)
             {
                 OnSelected(obj);
-                _selID=value
+                _selID=value;
             }
         }
 	}
@@ -40,34 +42,32 @@ public class Selector : MonoBehaviour
         selID= nodeID;
     }
 
-    // public void Select(GameObject nodeObj)
+    // public void Select(GameObject gObj)
     // {
     //     selID= GetIDByObj(nodeObj);
     // }
 
     void OnSelected(GameObject obj)
     {
-
+        if(onGameObjectSelected!= null)
+        {
+            onGameObjectSelected.Invoke(obj);
+        }
     }
-
-    public void 
 
     public string GetIDByObj(GameObject gObj)
     {
-        var selNode= nodes.Find<Node>(node => {return node.gObj==nodeObj;});
+        var selNode= nodes.Find(node => {return node.gObj==gObj;});
         return selNode!=null? selNode.nodeID: null;
     }
 
     public GameObject GetObjByID(string nodeID)
     {
-        var selNode= nodes.Find<Node>(node => {return node.nodeID==nodeID;});
+        var selNode= nodes.Find(node => {return node.nodeID==nodeID;});
     	return selNode!=null? selNode.gObj: null;
     }
+
+    [System.Serializable]
+    public class GmObjEvent:UnityEvent<GameObject>{}
 }
 
-public class Node
-{
-    public string nodeID;
-    public GameObject gObj;
-    public string gObjPath;
-}
