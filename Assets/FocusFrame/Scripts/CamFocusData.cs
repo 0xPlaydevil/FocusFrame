@@ -13,6 +13,8 @@ public class CamFocusData : MonoBehaviour
     public CamFocus focusCom = null;
     public string tableName = "NodeTable";
     public string nodeKey= "NodeID";
+    // Todo: 添加相对空间支持
+    public Transform space= null;
     public Dictionary<string, Orientation> oriens = new Dictionary<string, Orientation>();
     // Start is called before the first frame update
     void Awake()
@@ -37,6 +39,7 @@ public class CamFocusData : MonoBehaviour
         {
             oriens.Add(reader[nodeKey] as string, new Orientation(reader));
         }
+        reader.Close();
     }
 
     public void SaveOriens()
@@ -83,7 +86,7 @@ public class Orientation
 {
     public Vector3 position;
     public Vector3 eulerAngles;
-    public static string[] colNames = new string[6] { "PosX", "PosY", "PosZ", "EulY", "EulY", "EulY" };
+    public static string[] colNames = new string[6] { "PosX", "PosY", "PosZ", "EulX", "EulY", "EulZ" };
 
     public Orientation(float px, float py, float pz, float ex, float ey, float ez)
     {

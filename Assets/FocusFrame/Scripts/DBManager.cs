@@ -20,7 +20,7 @@ public class DbManager : MonoBehaviour
 		{
 			if(_db==null)
 			{
-				_db= new SQLHelper(dbType,dbPath,user,password,dbName,port);
+				_db= new SQLHelper(dbType,dbPath,dbName,user,password,port);
 			}
 			_db.debug=isDebug;
 			return _db;

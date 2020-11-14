@@ -73,6 +73,11 @@ public class Node
     public string gObjPath;
     public static string[] colNames= new string[]{"NodeID","NodePath"};
 
+    public Node(string nodeID)
+    {
+        this.nodeID= nodeID;
+    }
+
     public void Save2Db(DbManager dbMng,string tableName)
     {
         dbMng.db.UpdateValues(tableName,new string[]{colNames[1]},new string[]{DbManager.SQuote(gObjPath)},colNames[0],"=",DbManager.SQuote(nodeID));
