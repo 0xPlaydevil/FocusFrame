@@ -100,8 +100,22 @@ public class Orientation
         eulerAngles = eul;
     }
 
-    public Orientation(DbDataReader reader) : this((float)reader[colNames[0]], (float)reader[colNames[1]], (float)reader[colNames[2]], (float)reader[colNames[3]], (float)reader[colNames[4]], (float)reader[colNames[5]])
+    public Orientation(DbDataReader reader)
     {
+        position.Set(GetFloat(reader,colNames[0]), GetFloat(reader,colNames[1]), GetFloat(reader,colNames[2]));
+        eulerAngles.Set(GetFloat(reader,colNames[3]), GetFloat(reader,colNames[4]), GetFloat(reader,colNames[5]));
+    }
+
+    public static float GetFloat(DbDataReader reader,string colName,float fallback=0f)
+    {
+        try
+        {
+            return (float)reader[colName];
+        }
+        catch
+        {
+            return fallback;
+        }
     }
 
     public string[] ToStrArray()

@@ -80,6 +80,7 @@ public class Node
 
     public void Save2Db(DbManager dbMng,string tableName)
     {
-        dbMng.db.UpdateValues(tableName,new string[]{colNames[1]},new string[]{DbManager.SQuote(gObjPath)},colNames[0],"=",DbManager.SQuote(nodeID));
+        var reader= dbMng.db.UpdateValues(tableName,new string[]{colNames[1]},new string[]{DbManager.SQuote(gObjPath)},colNames[0],"=",DbManager.SQuote(nodeID));
+        reader.Close();
     }
 }

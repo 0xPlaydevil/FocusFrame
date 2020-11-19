@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GlobalManager : MonoBehaviour
 {
 	public InputField idInput;
+	public string tableName= "NodeTable";
 	Selector selector;
 	CamFocusData camData;
 	Transform camRig;
@@ -36,7 +37,7 @@ public class GlobalManager : MonoBehaviour
 
     void OnEnable()
     {
-    	var reader = dbMng.db.ReadFullTable("NodeTable");
+    	var reader = dbMng.db.ReadFullTable(tableName);
     	while(reader.Read())
     	{
     		Node nd= new Node((string)reader["NodeID"]);
