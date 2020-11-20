@@ -40,7 +40,17 @@ public class GlobalManager : MonoBehaviour
     	var reader = dbMng.db.ReadFullTable(tableName);
     	while(reader.Read())
     	{
-    		Node nd= new Node((string)reader["NodeID"]);
+    		Node nd= new Node((string)reader[Node.colNames[0]]);
+    		try
+    		{
+	    		nd.gObjPath= (string)reader[Node.colNames[1]];
+	    		nd.gObj= GameObject.Find("/"+nd.gObjPath);
+	    		if(!nd.gObj)
+	    		{
+	    			Debug.LogWarning("GameObject not found: "+nd.gObjPath);
+	    		}
+    		}
+    		catch{}
     		selector.nodes.Add(nd);
     	}
     	reader.Close();
