@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class GlobalManager : MonoBehaviour
 {
@@ -50,7 +51,16 @@ public class GlobalManager : MonoBehaviour
 	    			Debug.LogWarning("GameObject not found: "+nd.gObjPath);
 	    		}
     		}
-    		catch{}
+    		catch(InvalidCastException e)
+    		{}
+    		catch(IndexOutOfRangeException e)
+    		{
+    			Debug.LogErrorFormat("Column `{0}` not found in database table `{1}`", Node.colNames[1], tableName);
+    		}
+    		catch(Exception e)
+    		{
+    			Debug.LogWarning(e.Message);
+    		}
     		selector.nodes.Add(nd);
     	}
     	reader.Close();
