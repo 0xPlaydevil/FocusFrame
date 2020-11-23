@@ -21,6 +21,7 @@ public class VisualStatus : MonoBehaviour
 	float curAlpha=1;
 	
 	Color[] origColors;
+	float[] origMetals;
 	Material[] mats;
 	MeshRenderer rdr;
 
@@ -30,9 +31,11 @@ public class VisualStatus : MonoBehaviour
         rdr=GetComponent<MeshRenderer>();
         mats= rdr.materials;
         origColors= new Color[mats.Length];
+        origMetals= new float[mats.Length];
         for(int i=0;i<mats.Length;++i) 
         {
         	origColors[i]= mats[i].GetColor("_Color");
+        	origMetals[i]= mats[i].GetFloat("_Metallic");
         }
     }
 
@@ -53,6 +56,7 @@ public class VisualStatus : MonoBehaviour
 		for(int i=0;i<mats.Length;++i)
 		{
 			mats[i].SetColor("_Color",Vector4.Scale(origColors[i],scaleV));
+			mats[i].SetFloat("_Metallic",origMetals[i]*alpha);
 			mats[i].SetFloat("_ZWrite",mats[i].GetColor("_Color").a>0.75f? 1: 0);
 		}
     }

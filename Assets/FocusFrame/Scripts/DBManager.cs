@@ -45,6 +45,11 @@ public class DbManager : MonoBehaviour
     	_db.CloseConnection();
     }
 
+    void OnApplicationQuit()
+    {
+    	_db.CloseConnection();    	
+    }
+
 	public static string SQuote(string orig)
 	{
 		return "'" + orig + "'";
