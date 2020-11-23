@@ -71,7 +71,7 @@ public class Node
     public string nodeID;
     public GameObject gObj;
     public string gObjPath;
-    public static string[] colNames= new string[]{"NodeID","NodePath"};
+    public static string[] colNames= new string[]{"NodeID","ObjPath"};
 
     public Node(string nodeID)
     {

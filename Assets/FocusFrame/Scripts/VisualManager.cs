@@ -30,6 +30,7 @@ public class VisualManager : MonoBehaviour
 		foreach(Material mat in mats)
 		{
 			mat.renderQueue= renderQueue;
+			mat.SetFloat("_ZWrite",1);
 		}
 		foreach(var renderer in allRdrs)
 		{
