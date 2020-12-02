@@ -8,6 +8,7 @@ public class GlobalManager : MonoBehaviour
 {
 	public InputField idInput;
 	public string tableName= "NodeTable";
+	public GameObject testCanvas= null;
 	Selector selector;
 	CamFocusData camData;
 	Transform camRig;
@@ -36,8 +37,38 @@ public class GlobalManager : MonoBehaviour
     	print(gmObj.name+ " "+ gmObj.GetComponent<NodeCom>().nodeData.nodeID);
     }
 
+    public void DatabaseConfig()
+    {
+    	string str= "";
+        str= Config.instance.GetString("DbInfo/Server", "");
+        if (str != "") dbMng.dbPath = str;
+        str= Config.instance.GetString("DbInfo/User", "");
+        if (str != "") dbMng.user = str;
+        str= Config.instance.GetString("DbInfo/Password", "");
+        if (str != "") dbMng.password = str;
+        str= Config.instance.GetString("DbInfo/DbName", "");
+        if (str != "") dbMng.dbName = str;
+        str= Config.instance.GetString("DbInfo/Port", "");
+        if (str != "") dbMng.port = str;
+        str= Config.instance.GetString("DbInfo/NodeTable", "");
+        if (str != "") camData.tableName= tableName = str;
+        str= Config.instance.GetString("DbInfo/NodeInfo/ObjPath", "");
+        if (str != "") Node.colNames[1] = str;
+    }
+
+    public void TestCanvasConfig()
+    {
+    	if(testCanvas)
+    	{
+    		testCanvas.SetActive(Config.instance.GetBool("TestCanvas",false));
+    	}
+    }
+
     void OnEnable()
     {
+        DatabaseConfig();
+        TestCanvasConfig();
+
     	var reader = dbMng.db.ReadFullTable(tableName);
     	while(reader.Read())
     	{

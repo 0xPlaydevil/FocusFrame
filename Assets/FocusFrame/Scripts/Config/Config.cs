@@ -57,6 +57,44 @@ public class Config : MonoBehaviour {
 		return jo;
 	}
 
+	public string GetString(string uri, string fallback)
+	{
+		JSONObject jObj=GetJsonObj(uri);
+		if(jObj!=null && jObj.IsString)
+		{
+			return jObj.str;
+		}
+		return fallback;
+	}
+
+	public float GetFloat(string uri, float fallback)
+	{
+		JSONObject jObj=GetJsonObj(uri);
+		if(jObj!=null && jObj.IsNumber)
+		{
+			return jObj.f;
+		}
+		return fallback;
+	}
+	public int GetInt(string uri, int fallback)
+	{
+		JSONObject jObj=GetJsonObj(uri);
+		if(jObj!=null && jObj.IsNumber)
+		{
+			return (int)jObj.i;
+		}
+		return fallback;
+	}
+	public bool GetBool(string uri, bool fallback)
+	{
+		JSONObject jObj=GetJsonObj(uri);
+		if(jObj!=null && jObj.IsBool)
+		{
+			return jObj.b;
+		}
+		return fallback;
+	}
+	
 	void Init()
 	{
 		jsonStr = ReadJsonFile(jsonPath);
