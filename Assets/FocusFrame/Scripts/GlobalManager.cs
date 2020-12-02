@@ -20,6 +20,7 @@ public class GlobalManager : MonoBehaviour
         camData= GetComponent<CamFocusData>();
         camRig= FindObjectOfType<FreeCamMove>().transform;
         dbMng= GetComponent<DbManager>();
+        DatabaseConfig();
     }
 
     public void OnBtnSetNode()
@@ -39,19 +40,8 @@ public class GlobalManager : MonoBehaviour
 
     public void DatabaseConfig()
     {
+        tableName= Config.instance.GetString("DbInfo/NodeTable", tableName);
     	string str= "";
-        str= Config.instance.GetString("DbInfo/Server", "");
-        if (str != "") dbMng.dbPath = str;
-        str= Config.instance.GetString("DbInfo/User", "");
-        if (str != "") dbMng.user = str;
-        str= Config.instance.GetString("DbInfo/Password", "");
-        if (str != "") dbMng.password = str;
-        str= Config.instance.GetString("DbInfo/DbName", "");
-        if (str != "") dbMng.dbName = str;
-        str= Config.instance.GetString("DbInfo/Port", "");
-        if (str != "") dbMng.port = str;
-        str= Config.instance.GetString("DbInfo/NodeTable", "");
-        if (str != "") camData.tableName= tableName = str;
         str= Config.instance.GetString("DbInfo/NodeInfo/ObjPath", "");
         if (str != "") Node.colNames[1] = str;
     }
@@ -66,7 +56,6 @@ public class GlobalManager : MonoBehaviour
 
     void OnEnable()
     {
-        DatabaseConfig();
         TestCanvasConfig();
 
     	var reader = dbMng.db.ReadFullTable(tableName);

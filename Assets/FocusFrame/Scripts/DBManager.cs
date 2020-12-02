@@ -20,6 +20,7 @@ public class DbManager : MonoBehaviour
 		{
 			if(_db==null)
 			{
+				ApplyConfig();
 				_db= new SQLHelper(dbType,dbPath,dbName,user,password,port);
 			}
 			_db.debug=isDebug;
@@ -38,6 +39,15 @@ public class DbManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void ApplyConfig()
+    {
+        dbPath= Config.instance.GetString("DbInfo/Server", dbPath);
+        user= Config.instance.GetString("DbInfo/User", user);
+        password= Config.instance.GetString("DbInfo/Password", password);
+        dbName= Config.instance.GetString("DbInfo/DbName", dbName);
+        port= Config.instance.GetString("DbInfo/Port", port);
     }
 
     void OnDisable()

@@ -20,6 +20,7 @@ public class CamFocusData : MonoBehaviour
     void Awake()
     {
         Debug.Assert(focusCom, "Inspector check: focusCom is null!", this);
+        tableName=Config.instance.GetString("DbInfo/NodeTable", tableName);
     }
 
     public void FocusNode(string nodeID)
